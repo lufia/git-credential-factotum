@@ -2,9 +2,10 @@
 
 TARG=git-credential-factotum
 
-HFILES=
+HFILES=all.h
 
 OFILES=\
 	main.$O\
+	params.$O\
 
 <$PLAN9/src/mkone

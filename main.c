@@ -2,6 +2,7 @@
 #include <libc.h>
 #include <thread.h>
 #include <auth.h>
+#include "all.h"
 
 typedef struct Cmd Cmd;
 struct Cmd {
@@ -12,7 +13,14 @@ struct Cmd {
 void
 run_get(int argc, char **argv)
 {
-	print("get\n");
+	Params *p;
+
+	p = parseparams(0);
+	if(p == nil)
+		sysfatal("parseparams: %r");
+	print("proto=%q dom=%q user=%q !password=%q\n",
+		p->protocol, p->host, p->username, p->password);
+	freeparams(p);
 }
 
 void
@@ -52,6 +60,7 @@ threadmain(int argc, char **argv)
 	}ARGEND
 	if(argc == 0)
 		usage();
+	quotefmtinstall();
 	for(p = commands; p->name; p++)
 		if(strcmp(*argv, p->name) == 0){
 			p->run(argc, argv+1);
