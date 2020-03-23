@@ -1,7 +1,5 @@
-#include <u.h>
-#include <libc.h>
-#include <bio.h>
 #include "all.h"
+#include <bio.h>
 
 char *
 estrdup(char *s)
@@ -52,4 +50,30 @@ freeparams(Params *p)
 	free(p->host);
 	free(p->username);
 	free(p->password);
+}
+
+static String *
+appendparam(String *s, char *key, char *val)
+{
+	char buf[512];
+
+	snprint(buf, sizeof buf, " %s=%q", key, val);
+	return s_append(s, buf);
+}
+
+String *
+makeString(Params *p)
+{
+	String *s;
+
+	s = s_new();
+	if(s == nil)
+		return nil;
+	if(s_append(s, "proto=pass service=git role=client") == nil)
+		return nil;
+	if(p->host && appendparam(s, "dom", p->host) == nil)
+		return nil;
+	if(p->username && appendparam(s, "user", p->username) == nil)
+		return nil;
+	return s;
 }
