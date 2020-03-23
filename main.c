@@ -126,7 +126,7 @@ Cmd commands[] = {
 void
 usage(void)
 {
-	fprint(2, "usage: %s {get|store|erase}\n", argv0);
+	fprint(2, "usage: %s [-D] {get|store|erase}\n", argv0);
 	threadexits(nil);
 }
 
@@ -136,6 +136,9 @@ threadmain(int argc, char **argv)
 	Cmd *p;
 
 	ARGBEGIN{
+	case 'D':
+		chatty9pclient++;
+		break;
 	default:
 		usage();
 	}ARGEND
