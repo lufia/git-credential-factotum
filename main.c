@@ -9,17 +9,6 @@ struct Cmd {
 	void (*run)(int argc, char **argv);
 };
 
-int
-dorpc(AuthRpc *rpc, char *verb, char *val)
-{
-	int ret;
-
-	ret = auth_rpc(rpc, verb, val, strlen(val));
-	if(ret < 0)
-		sysfatal("auth_rpc: %r");
-	return ret;
-}
-
 void
 cmd_get(int argc, char **argv)
 {
