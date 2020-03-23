@@ -11,7 +11,7 @@ struct Cmd {
 };
 
 void
-run_get(int argc, char **argv)
+cmd_get(int argc, char **argv)
 {
 	Params *p;
 
@@ -24,21 +24,21 @@ run_get(int argc, char **argv)
 }
 
 void
-run_store(int argc, char **argv)
+cmd_store(int argc, char **argv)
 {
 	print("store\n");
 }
 
 void
-run_erase(int argc, char **argv)
+cmd_erase(int argc, char **argv)
 {
 	print("rease\n");
 }
 
 Cmd commands[] = {
-	{ "get", run_get },
-	{ "store", run_store },
-	{ "erase", run_erase },
+	{ "get", cmd_get },
+	{ "store", cmd_store },
+	{ "erase", cmd_erase },
 	nil,
 };
 
