@@ -55,7 +55,7 @@ ctlwrite(char *s)
 	fs = nsamount("factotum", nil);
 	if(fs == nil)
 		return -1;
-	fid = fsopen(fs, "ctl", OREAD);
+	fid = fsopen(fs, "ctl", OWRITE);
 	if(fid == nil)
 		goto out;
 	if(fswrite(fid, s, strlen(s)) < 0)
