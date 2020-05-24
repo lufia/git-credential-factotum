@@ -1,15 +1,12 @@
 #include "all.h"
 #include <thread.h>
 #include <auth.h>
-#include <9pclient.h>
 
 typedef struct Cmd Cmd;
 struct Cmd {
 	char *name;
 	void (*run)(int argc, char **argv);
 };
-
-CFsys *(*nsmnt)(char*, char*) = nsamount;
 
 void
 cmd_get(int argc, char **argv)
@@ -33,30 +30,6 @@ cmd_get(int argc, char **argv)
 	free(up);
 	s_free(s);
 	freeparams(p);
-}
-
-int
-ctlwrite(char *s)
-{
-	CFsys *fs;
-	CFid *fid;
-	int ret;
-
-	ret = -1;
-	fs = nsmnt("factotum", nil);
-	if(fs == nil)
-		return -1;
-	fid = fsopen(fs, "ctl", OWRITE);
-	if(fid == nil)
-		goto out;
-	if(fswrite(fid, s, strlen(s)) < 0)
-		goto out;
-	ret = 0;
-
-out:
-	fsclose(fid);
-	fsunmount(fs);
-	return ret;
 }
 
 void
@@ -128,10 +101,10 @@ threadmain(int argc, char **argv)
 
 	ARGBEGIN{
 	case 'D':
-		chatty9pclient++;
+		debug9p();
 		break;
 	case 'n':
-		nsmnt = nsmount;
+		noauth();
 		break;
 	default:
 		usage();

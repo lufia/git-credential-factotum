@@ -7,5 +7,6 @@ HFILES=all.h
 OFILES=\
 	main.$O\
 	params.$O\
+	factotum_unix.$O\
 
 <$PLAN9/src/mkone
