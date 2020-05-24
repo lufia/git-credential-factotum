@@ -12,12 +12,6 @@ noauth(void)
 	nsmnt = nsmount;
 }
 
-void
-debug9p(void)
-{
-	chatty9pclient++;
-}
-
 int
 ctlwrite(char *s)
 {

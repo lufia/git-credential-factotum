@@ -26,5 +26,4 @@ extern void freeparams(Params*);
 extern String *makeString(Params*);
 
 extern void noauth(void);
-extern void debug9p(void);
 extern int ctlwrite(char*);

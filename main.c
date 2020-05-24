@@ -2,6 +2,8 @@
 #include <thread.h>
 #include <auth.h>
 
+int mainstacksize = 32*1024;
+
 typedef struct Cmd Cmd;
 struct Cmd {
 	char *name;
@@ -15,6 +17,8 @@ cmd_get(int argc, char **argv)
 	String *s;
 	UserPasswd *up;
 
+	USED(argc);
+	USED(argv);
 	p = parseparams(0);
 	if(p == nil)
 		sysfatal("parseparams: %r");
@@ -39,6 +43,8 @@ cmd_store(int argc, char **argv)
 	String *s;
 	char *q;
 
+	USED(argc);
+	USED(argv);
 	p = parseparams(0);
 	if(p == nil)
 		sysfatal("parseparams: %r");
@@ -64,6 +70,8 @@ cmd_erase(int argc, char **argv)
 	String *s;
 	char *q;
 
+	USED(argc);
+	USED(argv);
 	p = parseparams(0);
 	if(p == nil)
 		sysfatal("parseparams: %r");
@@ -90,8 +98,8 @@ Cmd commands[] = {
 void
 usage(void)
 {
-	fprint(2, "usage: %s [-D] {get|store|erase}\n", argv0);
-	threadexits(nil);
+	fprint(2, "usage: %s [-n] {get|store|erase}\n", argv0);
+	threadexits("usage");
 }
 
 void
@@ -100,9 +108,6 @@ threadmain(int argc, char **argv)
 	Cmd *p;
 
 	ARGBEGIN{
-	case 'D':
-		debug9p();
-		break;
 	case 'n':
 		noauth();
 		break;
