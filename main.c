@@ -2,7 +2,7 @@
 #include <thread.h>
 #include <auth.h>
 
-int mainstacksize = 32*1024;
+int mainstacksize = 64*1024;
 
 typedef struct Cmd Cmd;
 struct Cmd {
