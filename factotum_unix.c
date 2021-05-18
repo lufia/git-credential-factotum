@@ -6,6 +6,12 @@
 
 static CFsys *(*nsmnt)(char*, char*) = nsamount;
 
+int
+threadmaybackground(void)
+{
+	return 1;
+}
+
 void
 noauth(void)
 {
