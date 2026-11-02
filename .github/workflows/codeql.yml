@@ -33,6 +33,6 @@ jobs:
         build-mode: ${{ matrix.build-mode }}
     - run: mk -f mkfile.unix
       if: matrix.language == 'c-cpp'
-    - uses: lufia/workflows/.github/actions/codeql@bfc84184198b340bf1c34b2c695c2810a8e0897e # v0.11.1
+    - uses: lufia/workflows/.github/actions/codeql@87182a21e45d32572eea26d16b42baf1e5da0537 # v0.12.0
       with:
         language: ${{ matrix.language }}
